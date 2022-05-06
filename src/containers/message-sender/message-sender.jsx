@@ -20,11 +20,14 @@ const MessageSender = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <label htmlFor={idForm + "_message"}></label>
-            <input id={idForm + "_message"} value={message} onChange={(e) => setMessage(e.target.value)} />
-            <button type="submit">Envoyer</button>
-        </form>
+        <div>
+            <h2>Envoyer un message :</h2>
+            <form onSubmit={handleSubmit}>
+                <label htmlFor={idForm + "_message"}>Message : </label>
+                <input id={idForm + "_message"} value={message} onChange={(e) => setMessage(e.target.value)} />
+                <button type="submit">Envoyer</button>
+            </form>
+        </div>
     );
 };
 
