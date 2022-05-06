@@ -7,7 +7,7 @@ const MessageSocketContext = React.createContext();
 
 // Création d'un "Provider" pour notre utilisation de SocketIO
 export const MessageSocketProvider = ({ uri, token: userToken, loadingComponent, children }) => {
-    
+
     // Stockage interne (via le state) de l'instance de connection à SocketIO
     const [socket, setSocket] = useState();
 
@@ -76,4 +76,26 @@ export const useMessageSocketSender = () => {
     };
 
     return sendMessage;
+};
+
+// Création d'un "Hook" pour envoyer des messages via SocketIO
+export const useGroupSocketAction = () => {
+
+    // Récuperation de l'instance de SocketIO via le context
+    const socket = useContext(MessageSocketContext);
+
+    // Création d'un fonction pour déclancher les actions de groupe via SocketIO
+    const sendMessageGroup = (group, msg) => {
+        socket.emit("groupMessage", group.toUpperCase(), msg);
+    };
+
+    const joinGroup = (group) => {
+        socket.emit("groupJoin", group.toUpperCase());
+    };
+
+    const leaveGroup = (group) => {
+        socket.emit("groupLeave", group.toUpperCase());
+    };
+
+    return { sendMessageGroup, joinGroup, leaveGroup };
 };
